@@ -1,0 +1,32 @@
+.center {
+    position: absolute;
+
+    top: 50%;
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+}
+
+.arrow {
+    pointer-events: none;
+}
+   
+.arrow__path {
+    stroke: #000;
+    fill: transparent;
+}
+
+.arrow__head line {
+    stroke: #000;
+    stroke-width: 1px;
+}
+
+.header {
+    display: flex;
+    flex-direction: row;
+
+    align-items: center;
+    justify-content: space-between;
+
+    margin: 20px;
+}

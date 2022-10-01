@@ -1,0 +1,64 @@
+@use 'colors.scss' as *;
+@use 'vars.scss' as *;
+
+.toggle {
+    border: $border;
+    border-radius: $border-radius;
+    
+    display: flex;
+    flex-direction: row;
+
+    align-items: center;
+
+    gap: 10px;
+
+    background: $light;
+
+    height: 35px;
+    width: 50px;
+
+    padding-inline: 10px;
+
+    box-shadow: $drop-shadow;
+
+    position: relative;
+
+    cursor: pointer;
+
+    .toggle-icon {
+        margin-right: 15px;
+
+        z-index: 1;
+
+        transition: $transition;
+
+        color: $dark;
+    }
+
+    .toggle-icon-enabled {
+        color: $light;
+    }
+
+    .toggle-switch {
+        position: absolute;
+
+        width: 25px;
+        height: 25px;
+
+        border-radius: $border-radius;
+
+        transition: $transition;
+    }
+
+    .toggle-switch-enabled {
+        background: $primary;
+
+        transform: translateX(-3px);
+    }
+
+    .toggle-switch-disabled {
+        background: $dark;
+
+        transform: translateX(100%);
+    }
+}

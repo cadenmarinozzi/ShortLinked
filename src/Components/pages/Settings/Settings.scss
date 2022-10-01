@@ -1,0 +1,30 @@
+.edit-user-controls {
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+
+    gap: 20px;
+
+    .edit-user-input {
+        width: 100%;
+    }
+
+    .edit-user-submit {
+        display: flex;
+        flex-direction: row;
+
+        align-items: center;
+
+        gap: 20px;
+    }
+}
+
+.remove-user-button {
+    position: absolute;
+
+    bottom: 0;
+    right: 0;
+
+    margin: 20px;
+}

@@ -1,0 +1,89 @@
+@use 'vars.scss' as *;
+@use 'colors.scss' as *;
+
+.button {
+    border: $border;
+
+    border-radius: $border-radius;
+    
+    padding-inline: $golden * 5px;
+    padding-block: 5px;
+
+    width: 150px;
+    height: 35px;
+
+    display: flex;
+    flex-direction: row;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 10px;
+    
+    transition: $transition;
+
+    cursor: pointer;
+
+    box-shadow: $drop-shadow;
+}
+
+.button-round {
+    border-radius: 20px;
+}
+
+.button-circle {
+    border-radius: 50%;
+
+    width: 50px;
+    height: 50px;
+}
+
+.button-default {
+    background: $light;
+    color: $darkest;
+}
+
+.button-cta {
+    background: $primary;
+    color: $light;
+}
+
+.button-secondary {
+    background: $secondary;
+    color: $light;
+}
+
+.button-cta:hover {
+    background: $light;
+    color: $primary;
+}
+
+.button-default:hover {
+    background: $primary;
+    color: $light;
+}
+
+.button-cta:hover {
+    background: $light;
+    color: $primary;
+}
+
+.button-secondary:hover {
+    background: $light;
+    color: $darkest;
+}
+
+.button-default:active {
+    background: rgba($primary, 0.6);
+    color: $light;
+}
+
+.button-cta:active {
+    background: rgba($primary, 0.6);
+    color: $light;
+}
+
+.button-secondary:active {
+    background: rgba($secondary, 0.6);
+    color: $light;
+}

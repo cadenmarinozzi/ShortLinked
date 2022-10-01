@@ -1,0 +1,21 @@
+.shorten-link-controls {
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+
+    gap: 20px;
+
+    .shorten-link-input {
+        width: 100%;
+    }
+
+    .shorten-link-submit {
+        display: flex;
+        flex-direction: row;
+
+        align-items: center;
+
+        gap: 20px;
+    }
+}

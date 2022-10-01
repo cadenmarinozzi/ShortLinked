@@ -1,0 +1,83 @@
+@use 'colors.scss' as *;
+@use 'vars.scss' as *;
+
+.header {
+    .shorten-link-button {
+        padding-block: 10px;
+    }
+}
+
+.home {
+    .home-middle {
+        display: flex;
+        flex-direction: column;
+
+        align-items: center;
+
+        gap: 20px;
+
+        .begin-button {
+            padding-top: 10px;
+        }
+
+        .empty-links-label {
+            padding-inline: 10px;
+
+            padding-block: 10px;
+        }
+
+        .shortened-link {
+            border: $border;
+            border-radius: $border-radius;
+
+            padding: 20px;
+
+            width: 100%;
+
+            display: flex;
+            flex-direction: row;
+
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 20px;
+
+            background: $light;
+
+            box-shadow: $drop-shadow;
+
+            .shortened-link-link {
+                color: $primary;
+            }
+            
+            .shortened-link-to {
+                padding-left: 10px;
+            }
+
+            .shortened-link-from {
+                padding-right: 10px;
+            }
+
+            .shortened-link-controls {
+                display: flex;
+                flex-direction: row;
+
+                align-items: center;
+
+                gap: 10px;
+
+                .remove-shortened-link {
+                    cursor: pointer;
+
+                    color: $secondary;
+                }
+
+                .edit-shortened-link {
+                    cursor: pointer;
+
+                    color: $dark;
+                }
+            }
+        }
+    }
+}

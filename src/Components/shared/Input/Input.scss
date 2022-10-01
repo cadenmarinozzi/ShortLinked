@@ -1,0 +1,170 @@
+@use 'colors.scss' as *;
+@use 'vars.scss' as *;
+
+.input-container {
+    border: $border;
+
+    position: relative;
+
+    width: 400px;
+    height: 50px;
+
+    box-shadow: $drop-shadow;
+
+    border-radius: $border-radius;
+
+    display: flex;
+    flex-direction: row;
+
+    align-items: center;
+
+    background: $light;
+
+    .input-tooltip-container {
+        position: absolute;
+
+        background: $light;
+
+        border:  $border;
+        border-radius: $border-radius;
+
+        padding: 10px;
+
+        top: calc(100% - 10px);
+
+        max-width: 250px;
+
+        z-index: 2;
+
+        opacity: 0;
+
+        pointer-events: none;
+
+        transition: $transition;
+    }
+
+    .input-tooltip {
+        color: $dark;
+
+        margin-left: 10px;
+
+        cursor: pointer;
+    }
+
+    .input-tooltip:hover+.input-tooltip-container {
+        opacity: 1;
+    }
+
+    .input-button-icon {
+        margin-right: 15px;
+
+        cursor: pointer;
+    }
+
+    .input-label {
+        position: absolute;
+
+        top: 0;
+
+        left: 10px;
+
+        transform: translate(0, -50%);
+
+        transition: $transition;
+                
+        .input-label-line-container {
+            position: absolute;
+
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+
+            transform: translateY(-50%);
+
+            .input-label-line {
+                background: $light;
+                height: 1px;
+                width: calc(100% + 4px);
+
+                transform: translate(-2px, -100%);
+
+                z-index: -1;
+            }
+        }
+
+        .input-required {
+            color: $secondary;
+        }
+    }
+
+    .input-label-disabled {
+        color: $dark;
+    }
+
+    .input-label-enabled {
+        color: $primary;
+    }
+
+    .input {
+        padding-inline: 10px;
+
+        outline: 0;
+        border: 0;
+
+        width: 100%;
+    }
+
+    .password-meter {
+        padding-inline: 10px;
+    }
+
+    .meter-weak {
+        color: $secondary;
+    }
+
+    .meter-good {
+        color: $dark;
+    }
+
+    .meter-strong {
+        color: $darkest;
+    }
+}
+
+.input-error {
+    border-color: $secondary;
+
+    .input-label {
+        color: $secondary;
+    }
+}
+
+.password-strength {
+    width: 100%;
+
+    margin-top: -10px;
+
+    .password-strength-bar {
+        height: 5px;
+
+        border: $border;
+        border-radius: $border-radius;
+
+        transition: $transition;
+    }
+
+    .password-weak {
+        background: $secondary;
+        width: 33%;
+    }
+
+    .password-good {
+        background: $primary;
+        width: 66%;
+    }
+
+    .password-strong {
+        background: $success;
+        width: 100%;
+    }   
+}
