@@ -8,6 +8,8 @@ const {
 	update,
 } = require('firebase/database');
 const { v4: uuid } = require('uuid');
+const { sha256 } = require('js-sha256');
+
 require('dotenv').config();
 
 const firebaseConfig = {
@@ -113,7 +115,7 @@ async function login(user) {
 	const userSnapshot = await getUser(user);
 
 	if (userSnapshot) {
-		return userSnapshot.password === user.password;
+		return userSnapshot.password === sha256(user.password);
 	}
 }
 
@@ -121,6 +123,7 @@ async function signUp(user) {
 	const userSnapshot = await getUser(user);
 
 	if (!userSnapshot) {
+		user.password = sha256(user.password);
 		await createUser(user);
 
 		return true;
