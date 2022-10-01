@@ -43,7 +43,15 @@ class ShortenLink extends Component {
 	}
 
 	async shortenLink() {
-		const { newUrlPrefix, fromURL, expirationDate } = this.state;
+		let { newUrlPrefix, fromURL, expirationDate } = this.state;
+
+		if (!newUrlPrefix || !fromURL) {
+			return;
+		}
+
+		if (!fromURL.includes('https://') && !fromURL.includes('http://')) {
+			fromURL = `https://${fromURL}`;
+		}
 
 		const link = {
 			newUrlPrefix,

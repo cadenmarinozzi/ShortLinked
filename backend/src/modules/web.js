@@ -102,6 +102,8 @@ async function getLinks(user) {
 	if (userSnapshot.exists()) {
 		const links = userSnapshot.val().links;
 
+		if (!links) return;
+
 		return Object.values(links).map((link) => {
 			return {
 				fromURL: link.fromURL,
@@ -109,6 +111,12 @@ async function getLinks(user) {
 			};
 		});
 	}
+}
+
+async function getAllLinks() {
+	const linksSnapshot = await get(linksRef);
+
+	return linksSnapshot.exists() && linksSnapshot.val();
 }
 
 async function login(user) {
@@ -130,4 +138,4 @@ async function signUp(user) {
 	}
 }
 
-module.exports = { login, signUp, shortenLink, getLinks };
+module.exports = { login, signUp, shortenLink, getLinks, getAllLinks };

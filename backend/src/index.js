@@ -13,6 +13,26 @@ app.get('/', (req, res) => {
 	res.status(200).send('ShortLinked');
 });
 
+app.get('*', async (req, res) => {
+	try {
+		const links = await web.getAllLinks();
+
+		const link = Object.values(links).find(
+			(link) => link.newUrlPrefix === req.originalUrl.slice(1)
+		);
+
+		if (link) {
+			return res.redirect(link.fromURL);
+		}
+
+		res.status(404).send('Not found');
+	} catch (err) {
+		console.error(err);
+
+		res.status(500).send('Internal server error');
+	}
+});
+
 app.post('/login', async (req, res) => {
 	try {
 		const user = req.body;
@@ -33,7 +53,7 @@ app.post('/signup', async (req, res) => {
 	try {
 		const user = req.body;
 
-		if ((await web.signUp(user)) && validateUser(user)) {
+		if (validateUser(user) && (await web.signUp(user))) {
 			return res.status(200).send('OK');
 		}
 
