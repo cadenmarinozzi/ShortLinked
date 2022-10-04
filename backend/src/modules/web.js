@@ -83,11 +83,9 @@ async function shortenLink({ user, link }) {
 
 	const userRef = await getUserRef(user);
 
-	await update(child(userRef, 'links'), {
-		[linkId]: {
-			...link,
-			linkId: linkId,
-		},
+	await set(child(child(userRef, 'links'), linkId), {
+		...link,
+		linkId,
 	});
 
 	return linkId;

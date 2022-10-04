@@ -8,9 +8,13 @@ axios.defaults.headers = {
 };
 
 async function login(user) {
-	const response = await axios.post('login', user);
+	try {
+		const response = await axios.post('login', user);
 
-	return response.status === 200;
+		return response.status === 200;
+	} catch (err) {
+		return false;
+	}
 }
 
 async function signUp(user) {

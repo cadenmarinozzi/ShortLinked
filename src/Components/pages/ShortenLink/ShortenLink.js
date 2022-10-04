@@ -62,9 +62,7 @@ class ShortenLink extends Component {
 			link.expirationDate = expirationDate;
 		}
 
-		await web.shortenLink({
-			link,
-		});
+		await web.shortenLink(link);
 
 		window.location.reload();
 	}
