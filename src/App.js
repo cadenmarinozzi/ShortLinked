@@ -1,14 +1,14 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { HashRouter, Routes, Route } from 'react-router-dom';
 import Home from './Components/pages/Home';
 import Footer from './Components/containers/Footer';
 import ShortenLink from './Components/pages/ShortenLink';
 import Settings from './Components/pages/Settings';
-import './App.scss';
 import Login from 'Components/pages/Login';
 import SignUp from 'Components/pages/SignUp';
 import { Component } from 'react';
 import cookies from 'modules/cookies';
 import web from 'modules/web';
+import './App.scss';
 
 class App extends Component {
 	constructor() {
@@ -40,7 +40,7 @@ class App extends Component {
 	render() {
 		return (
 			this.state.loaded && (
-				<BrowserRouter>
+				<HashRouter>
 					{this.state.loggedIn ? (
 						<Routes>
 							<Route path='*' element={<Home />} />
@@ -55,7 +55,7 @@ class App extends Component {
 						</Routes>
 					)}
 					<Footer />
-				</BrowserRouter>
+				</HashRouter>
 			)
 		);
 	}

@@ -6,6 +6,7 @@ const {
 	set,
 	child,
 	update,
+	remove,
 } = require('firebase/database');
 const { v4: uuid } = require('uuid');
 const { sha256 } = require('js-sha256');
@@ -92,6 +93,19 @@ async function shortenLink({ user, link }) {
 	return linkId;
 }
 
+async function removeLink({ user, link }) {
+	const userRef = await getUserRef(user);
+
+	if (!userRef) return;
+
+	const userSnapshot = await get(userRef);
+
+	if (userSnapshot.exists()) {
+		await remove(child(child(userRef, 'links'), link.linkId));
+		await remove(child(linksRef, link.linkId));
+	}
+}
+
 async function getLinks(user) {
 	const userRef = await getUserRef(user);
 
@@ -108,6 +122,7 @@ async function getLinks(user) {
 			return {
 				fromURL: link.fromURL,
 				toURL: link.newUrlPrefix,
+				linkId: link.linkId,
 			};
 		});
 	}
@@ -138,4 +153,11 @@ async function signUp(user) {
 	}
 }
 
-module.exports = { login, signUp, shortenLink, getLinks, getAllLinks };
+module.exports = {
+	login,
+	signUp,
+	shortenLink,
+	getLinks,
+	getAllLinks,
+	removeLink,
+};

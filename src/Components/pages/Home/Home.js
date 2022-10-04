@@ -22,10 +22,7 @@ class Home extends Component {
 	}
 
 	async componentDidMount() {
-		const links = await web.getLinks({
-			email: cookies.get('email'),
-			password: cookies.get('password'),
-		});
+		const links = await web.getLinks();
 
 		this.setState({
 			links,
@@ -49,7 +46,8 @@ class Home extends Component {
 						<Link to='/shorten'>
 							<div
 								ref={this.shortenLinkRef}
-								className='shorten-link-button'>
+								className='shorten-link-button'
+							>
 								<Button icon={faPlus} label='Shorten Link' />
 							</div>
 						</Link>
@@ -68,13 +66,15 @@ class Home extends Component {
 								<>
 									<h1
 										className='empty-links-label'
-										ref={this.emptyLabelRef}>
+										ref={this.emptyLabelRef}
+									>
 										You haven't shortened any links yet!
 									</h1>
 									<Link to='/shorten'>
 										<div
 											ref={this.beginRef}
-											className='begin-button'>
+											className='begin-button'
+										>
 											<Button
 												icon={faLink}
 												label='Begin'
@@ -136,26 +136,40 @@ class Home extends Component {
 											? to.substring(0, 26) + '...'
 											: to;
 
+									const removeLink = async () => {
+										await web.removeLink({
+											linkId: link.linkId,
+										});
+
+										this.setState({
+											links: await web.getLinks(),
+										});
+									};
+
 									return (
 										<div
 											className='shortened-link'
-											key={index}>
+											key={index}
+										>
 											<a href={link.fromURL}>
 												<span
 													className='shortened-link-link shortened-link-from'
-													ref={startRef}>
+													ref={startRef}
+												>
 													{from}
 												</span>
 											</a>
 											<a href={link.toURL}>
 												<span
 													className='shortened-link-link shortened-link-to'
-													ref={endRef}>
+													ref={endRef}
+												>
 													{to}
 												</span>
 											</a>
 											<div className='shortened-link-controls'>
 												<FontAwesomeIcon
+													onClick={removeLink}
 													icon={faTrash}
 													className='remove-shortened-link'
 												/>

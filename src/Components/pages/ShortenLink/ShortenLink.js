@@ -64,13 +64,9 @@ class ShortenLink extends Component {
 
 		await web.shortenLink({
 			link,
-			user: {
-				email: cookies.get('email'),
-				password: cookies.get('password'),
-			},
 		});
 
-		window.location.href = '/';
+		window.location.reload();
 	}
 
 	render() {

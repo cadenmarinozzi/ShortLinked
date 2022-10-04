@@ -26,7 +26,7 @@ class Login extends Component {
 			cookies.set('email', email);
 			cookies.set('password', password);
 
-			window.location.href = '/';
+			window.location.reload();
 
 			return;
 		}

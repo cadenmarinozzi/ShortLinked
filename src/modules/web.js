@@ -1,7 +1,8 @@
 import axios from 'axios';
+import cookies from './cookies';
 import { validateUser } from './validation';
 
-axios.defaults.baseURL = 'http://localhost:8080/';
+axios.defaults.baseURL = 'https://short-linked.herokuapp.com/';
 axios.defaults.headers = {
 	'Content-Type': 'application/json',
 };
@@ -20,17 +21,38 @@ async function signUp(user) {
 	return response.status === 200;
 }
 
-async function shortenLink({ user, link }) {
-	const response = await axios.post('shorten', { user, link });
+async function removeLink(link) {
+	const response = await axios.post('remove', {
+		user: {
+			email: cookies.get('email'),
+			password: cookies.get('password'),
+		},
+		link,
+	});
 
 	return response.status === 200;
 }
 
-async function getLinks(user) {
-	const response = await axios.post('links', user);
+async function shortenLink(link) {
+	const response = await axios.post('shorten', {
+		user: {
+			email: cookies.get('email'),
+			password: cookies.get('password'),
+		},
+		link,
+	});
+
+	return response.status === 200;
+}
+
+async function getLinks() {
+	const response = await axios.post('links', {
+		email: cookies.get('email'),
+		password: cookies.get('password'),
+	});
 
 	return response.status === 200 && response.data;
 }
 
 // eslint-disable-next-line
-export default { login, signUp, shortenLink, getLinks };
+export default { login, signUp, shortenLink, getLinks, removeLink };

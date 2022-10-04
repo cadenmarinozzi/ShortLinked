@@ -33,6 +33,22 @@ app.get('*', async (req, res) => {
 	}
 });
 
+app.post('/remove', async (req, res) => {
+	try {
+		const { user, link } = req.body;
+
+		if (!web.login(user)) return res.status(400).send('Bad request');
+
+		await web.removeLink({ user, link });
+
+		res.status(200).send('OK');
+	} catch (err) {
+		console.error(err);
+
+		res.status(500).send('Internal server error');
+	}
+});
+
 app.post('/login', async (req, res) => {
 	try {
 		const user = req.body;
@@ -67,7 +83,7 @@ app.post('/signup', async (req, res) => {
 
 app.post('/shorten', async (req, res) => {
 	try {
-		const { user, link } = req.body;
+		const { user } = req.body;
 
 		if ((await web.login(user)) && (await web.shortenLink(req.body))) {
 			return res.status(200).send('OK');
