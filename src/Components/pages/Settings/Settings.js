@@ -16,12 +16,30 @@ import {
 	validatePassword,
 } from 'modules/validation';
 import './Settings.scss';
+import cookies from 'modules/cookies';
+import web from 'modules/web';
 
 class Settings extends Component {
 	constructor() {
 		super();
 
 		this.state = {};
+	}
+
+	async updateUser() {
+		const { username, email, password } = this.state;
+
+		const user = {
+			email: cookies.get('email'),
+			password: cookies.get('password'),
+			username: cookies.get('username'),
+		};
+
+		if (username) user.username = username;
+		if (email) user.email = email;
+		if (password) user.password = password;
+
+		web.updateUser(user);
 	}
 
 	render() {
@@ -41,8 +59,10 @@ class Settings extends Component {
 						placeholder='link_shorter22'
 						className='edit-user-input'
 						validate={validateUsername}
-						onChange={() => {
-							this.setState({});
+						onChange={(username) => {
+							this.setState({
+								username,
+							});
 						}}
 					/>
 					<Input
@@ -51,6 +71,11 @@ class Settings extends Component {
 						placeholder='link_shorter22@gmail.com'
 						tooltip='The email associated with your account.'
 						className='edit-user-input'
+						onChange={(email) => {
+							this.setState({
+								email,
+							});
+						}}
 					/>
 					<Input
 						label='Update Password'
@@ -59,9 +84,19 @@ class Settings extends Component {
 						tooltip='The password to access your account.'
 						type='password'
 						className='edit-user-input'
+						onChange={(password) => {
+							this.setState({
+								password,
+							});
+						}}
 					/>
 					<div className='edit-user-submit'>
-						<Button icon={faUserPen} label='Update User' cta />
+						<Button
+							icon={faUserPen}
+							label='Update User'
+							cta
+							onClick={this.updateUser.bind(this)}
+						/>
 						<Link to='/'>
 							<Button icon={faTrash} label='Cancel' secondary />
 						</Link>
@@ -81,7 +116,8 @@ class Settings extends Component {
 				{this.state.showDeleteAccountPopup && (
 					<PopUp
 						icon={faCircleExclamation}
-						message='Are you sure you want to delete your account? This action cannot be undone.'>
+						message='Are you sure you want to delete your account? This action cannot be undone.'
+					>
 						<Button
 							icon={faTrash}
 							label='Delete Account'

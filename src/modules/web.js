@@ -17,6 +17,18 @@ async function login(user) {
 	}
 }
 
+async function updateUser(user) {
+	const response = await axios.post('updateuser', {
+		newUser: user,
+		user: {
+			email: cookies.get('email'),
+			password: cookies.get('password'),
+		},
+	});
+
+	return response.status === 200;
+}
+
 async function signUp(user) {
 	if (!validateUser(user)) return;
 
@@ -59,4 +71,4 @@ async function getLinks() {
 }
 
 // eslint-disable-next-line
-export default { login, signUp, shortenLink, getLinks, removeLink };
+export default { login, signUp, shortenLink, getLinks, removeLink, updateUser };

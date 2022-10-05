@@ -49,6 +49,26 @@ app.post('/remove', async (req, res) => {
 	}
 });
 
+app.post('/updateuser', async (req, res) => {
+	try {
+		const { newUser, user } = req.body;
+
+		if (!validateUser(newUser)) return res.status(400).send('Bad request');
+
+		if (web.login(user)) {
+			await web.updateUser(req.body);
+
+			return res.status(200).send('OK');
+		}
+
+		res.status(401).send('Unauthorized');
+	} catch (err) {
+		console.error(err);
+
+		res.status(500).send('Internal server error');
+	}
+});
+
 app.post('/login', async (req, res) => {
 	try {
 		const user = req.body;

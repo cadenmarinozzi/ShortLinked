@@ -91,6 +91,18 @@ async function shortenLink({ user, link }) {
 	return linkId;
 }
 
+async function updateUser({ user, newUser }) {
+	const userRef = await getUserRef(user);
+
+	if (!userRef) return;
+
+	newUser.password = sha256(newUser.password);
+	await update(userRef, newUser);
+	await update(child(emailsRef, await getUserId(user.email)), {
+		email: newUser.email,
+	});
+}
+
 async function removeLink({ user, link }) {
 	const userRef = await getUserRef(user);
 
@@ -158,4 +170,5 @@ module.exports = {
 	getLinks,
 	getAllLinks,
 	removeLink,
+	updateUser,
 };
